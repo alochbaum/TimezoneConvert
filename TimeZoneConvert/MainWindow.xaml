@@ -6,7 +6,7 @@
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:TimeZoneConvert"
         mc:Ignorable="d"
-        Title="MainWin" Height="650" Width="440">
+        Title="MainWin" Height="650" Width="440" Icon="timezoneicon.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" MinWidth="300"/>
