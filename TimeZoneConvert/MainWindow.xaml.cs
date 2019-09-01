@@ -28,5 +28,7 @@ namespace TimeZoneConvert
             MainWin.Title = "Timezone Conert version: " + Assembly.GetExecutingAssembly().GetName().Version;
 
         }
+        // note: the code for the original program is located in 
+        // \\192.168.3.98\NextBurn\VS2010C#_Projects\TimeZoneConvert
     }
 }

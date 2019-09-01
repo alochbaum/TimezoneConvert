@@ -3,14 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:TimeZoneConvert"
         mc:Ignorable="d"
-        Title="MainWin" Height="450" Width="800">
+        Title="MainWin" Height="650" Width="440">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="235*"/>
-            <ColumnDefinition Width="559*"/>
+            <ColumnDefinition Width="2*" MinWidth="300"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <wpfTool:DateTimePicker x:Name="dtpInput"></wpfTool:DateTimePicker>
+        <Label x:Name="lbl1" Content="UTC to EDT" HorizontalAlignment="Center" Grid.Row="2"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut1" Grid.Row="3"></RichTextBox>
+        <Label x:Name="lbl2" Content="UTC to EST or CDT" HorizontalAlignment="Center" Grid.Row="4"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut2" Grid.Row="5"></RichTextBox>
+        <Label x:Name="lbl3" Content="UCT to CST or MDT" HorizontalAlignment="Center" Grid.Row="6"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut3" Grid.Row="7"></RichTextBox>
+        <Label x:Name="lbl4" Content="UTC to MST or PDT" HorizontalAlignment="Center" Grid.Row="8"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut4" Grid.Row="9"></RichTextBox>
+        <Label x:Name="lbl5" Content="UTC to PST" HorizontalAlignment="Center" Grid.Row="10"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut5" Grid.Row="11"></RichTextBox>
+        <Label x:Name="lbl6" Content="EDT to UTC" HorizontalAlignment="Center" Grid.Row="13"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut6" Grid.Row="14"></RichTextBox>
+        <Label x:Name="lbl7" Content="EST or CDT to UTC" HorizontalAlignment="Center" Grid.Row="15"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut7" Grid.Row="16"></RichTextBox>
+        <Label x:Name="lbl8" Content="CST or MDT to UTC" HorizontalAlignment="Center" Grid.Row="17"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut8" Grid.Row="18"></RichTextBox>
+        <Label x:Name="lbl9" Content="MST or PDT to UTC" HorizontalAlignment="Center" Grid.Row="19"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut9" Grid.Row="20"></RichTextBox>
+        <Label x:Name="lbl10" Content="PST to UTC" HorizontalAlignment="Center" Grid.Row="21"  VerticalAlignment="Top"/>
+        <RichTextBox x:Name="rtbOut10" Grid.Row="22"></RichTextBox>
 
     </Grid>
 </Window>
