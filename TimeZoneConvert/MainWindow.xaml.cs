@@ -26,7 +26,12 @@ namespace TimeZoneConvert
             InitializeComponent();
             // Adding the version number to the title
             MainWin.Title = "Timezone Conert version: " + Assembly.GetExecutingAssembly().GetName().Version;
-
+            dtpInput.Value = DateTime.Now;
+            SetTimes();
+        }
+        private void SetTimes()
+        {
+            rtbOut1.Text = dtpInput.Value.ToString();
         }
         // note: the code for the original program is located in 
         // \\192.168.3.98\NextBurn\VS2010C#_Projects\TimeZoneConvert
