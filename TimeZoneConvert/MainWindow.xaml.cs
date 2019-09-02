@@ -21,6 +21,7 @@ namespace TimeZoneConvert
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ReadSQLite myReadSQLite;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +29,9 @@ namespace TimeZoneConvert
             MainWin.Title = "Timezone Conert version: " + Assembly.GetExecutingAssembly().GetName().Version;
             dtpInput.Value = DateTime.Now;
             SetTimes("MM/dd/yy H:mm:ss");
+            myReadSQLite = new ReadSQLite();
+            if (!myReadSQLite.GotDB())
+                MessageBox.Show("Didn't get database");
         }
         private void SetTimes(string strFormat)
         {
