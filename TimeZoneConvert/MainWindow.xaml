@@ -17,6 +17,10 @@
             <Setter Property="Margin" Value="10,0,5,0" />
             <Setter Property="TextAlignment" Value="Center" />
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,0,10,0"/>
+            <Setter Property="Grid.Column" Value="2"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -49,7 +53,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <wpfTool:DateTimePicker x:Name="dtpInput"></wpfTool:DateTimePicker>
+        <wpfTool:DateTimePicker x:Name="dtpInput" Margin="10,0,5,0" ValueChanged="DtpInput_ValueChanged"></wpfTool:DateTimePicker>
         <Label x:Name="lbl1" Content="UTC to EDT" Grid.Row="2" />
         <TextBox x:Name="rtbOut1" Grid.Row="3"/>
         <Label x:Name="lbl2" Content="UTC to EST or CDT" Grid.Row="4" />
@@ -70,6 +74,15 @@
         <TextBox x:Name="rtbOut9" Grid.Row="20"></TextBox>
         <Label x:Name="lbl10" Content="PST to UTC" Grid.Row="21" />
         <TextBox x:Name="rtbOut10" Grid.Row="22"></TextBox>
-
+        <Button x:Name="btnCopy1" Grid.Row="3" Click="BtnCopy1_Click">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy2" Grid.Row="5">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy3" Grid.Row="7">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy4" Grid.Row="9">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy5" Grid.Row="11">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy6" Grid.Row="14">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy7" Grid.Row="16">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy8" Grid.Row="18">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy9" Grid.Row="20">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy10" Grid.Row="22">Copy to Clipboard</Button>
     </Grid>
 </Window>
