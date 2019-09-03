@@ -42,6 +42,8 @@ namespace TimeZoneConvert
             {
                 while (reader.Read())
                 {
+                    lsReturn.Add(new OutputFormat(reader[1].ToString(), reader[2].ToString(),
+                        reader[3].ToString(), reader[4].ToString()));
                    // lsReturn.Add(Read[1],Read[2]);
                 }
             }

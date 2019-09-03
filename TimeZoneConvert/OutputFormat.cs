@@ -8,9 +8,27 @@ namespace TimeZoneConvert
 {
     class OutputFormat
     {
-        public string Title { get; set; }
-        public string Prefix { get; set; }
-        public string TimeFormat { get; set; }
-        public string Postfix { get; set; }
+        private string Title;
+        private string Prefix;
+        private string TimeFormat;
+        private string Suffix;
+        public OutputFormat(string Title,string Prefix,string TimeFormat,string Suffix)
+        {
+            this.SetTitle(Title);
+            this.Prefix = Prefix;
+            this.TimeFormat = TimeFormat;
+            this.Suffix = Suffix;
+        }
+
+        public string GetTitle()
+        {
+            return Title;
+        }
+
+        public void SetTitle(string value)
+        {
+            this.Title = value;
+        }
+
     }
 }
