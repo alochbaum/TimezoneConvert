@@ -66,6 +66,11 @@ namespace TimeZoneConvert
             SetTimes("MM/dd/yy H:mm:ss");
         }
 
+        private void GetOutFormats()
+        {
+            lOutformat = myReadSQLite.GetOutputFormats();
+
+        }
         private void BtnCopy1_Click(object sender, RoutedEventArgs e)
         {
 
