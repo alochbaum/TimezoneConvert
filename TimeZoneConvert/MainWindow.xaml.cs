@@ -22,6 +22,8 @@ namespace TimeZoneConvert
     public partial class MainWindow : Window
     {
         private ReadSQLite myReadSQLite;
+        private List<OutputFormat> lOutformat;
+        private List<TimeZone> lTimeZone;
         public MainWindow()
         {
             InitializeComponent();
