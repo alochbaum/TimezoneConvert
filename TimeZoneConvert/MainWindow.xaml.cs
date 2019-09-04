@@ -34,6 +34,15 @@ namespace TimeZoneConvert
             myReadSQLite = new ReadSQLite();
             if (!myReadSQLite.GotDB())
                 MessageBox.Show("Didn't get database");
+            else loadFormats();
+        }
+        private void loadFormats()
+        {
+            lOutformat = myReadSQLite.GetOutputFormats();
+            foreach (OutputFormat ouf in lOutformat)
+            {
+                cbSelect.Items.Add(ouf.GetTitle());
+            }
         }
         private void SetTimes(string strFormat)
         {
