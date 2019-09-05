@@ -6,7 +6,7 @@
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:TimeZoneConvert"
         mc:Ignorable="d"
-        Title="MainWin" Height="650" Width="440" Icon="timezoneicon.ico">
+        Title="MainWin" Height="450" Width="440" Icon="timezoneicon.ico">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -20,6 +20,9 @@
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5,0,10,0"/>
             <Setter Property="Grid.Column" Value="2"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="10,0,5,0"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -40,13 +43,6 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -54,31 +50,24 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <wpfTool:DateTimePicker x:Name="dtpInput" Margin="10,0,5,0" ValueChanged="DtpInput_ValueChanged"></wpfTool:DateTimePicker>
-        <ComboBox x:Name="cbSelect" Grid.Row="1" IsDropDownOpen="True"/>
-        <Label x:Name="lbl1" Content="UTC to EDT" Grid.Row="2" />
-        <TextBox x:Name="rtbOut1" Grid.Row="3"/>
-        <Label x:Name="lbl2" Content="UTC to EST or CDT" Grid.Row="4" />
-        <TextBox x:Name="rtbOut2" Grid.Row="5"></TextBox>
-        <Label x:Name="lbl3" Content="UCT to CST or MDT" Grid.Row="6" />
-        <TextBox x:Name="rtbOut3" Grid.Row="7"></TextBox>
-        <Label x:Name="lbl4" Content="UTC to MST or PDT" Grid.Row="8" />
-        <TextBox x:Name="rtbOut4" Grid.Row="9"></TextBox>
-        <Label x:Name="lbl5" Content="UTC to PST" Grid.Row="10" />
-        <TextBox x:Name="rtbOut5" Grid.Row="11"></TextBox>
-        <Label x:Name="lbl6" Content="EDT to UTC" Grid.Row="13" />
-        <TextBox x:Name="rtbOut6" Grid.Row="14"></TextBox>
-        <Label x:Name="lbl7" Content="EST or CDT to UTC" Grid.Row="15" />
-        <TextBox x:Name="rtbOut7" Grid.Row="16"></TextBox>
-        <Label x:Name="lbl8" Content="CST or MDT to UTC" Grid.Row="17" />
-        <TextBox x:Name="rtbOut8" Grid.Row="18"></TextBox>
-        <Label x:Name="lbl9" Content="MST or PDT to UTC" Grid.Row="19" />
-        <TextBox x:Name="rtbOut9" Grid.Row="20"></TextBox>
-        <Label x:Name="lbl10" Content="PST to UTC" Grid.Row="21" />
-        <TextBox x:Name="rtbOut10" Grid.Row="22"></TextBox>
-        <Button x:Name="btnCopy1" Grid.Row="3" Click="BtnCopy1_Click">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy2" Grid.Row="5">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy3" Grid.Row="7">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy4" Grid.Row="9">Copy to Clipboard</Button>
+        <ComboBox x:Name="cbSelect" Grid.Row="1" IsDropDownOpen="True" SelectionChanged="CbSelect_SelectionChanged" />
+        <TextBox x:Name="tbPrefix" Grid.Row="1" Grid.Column="2"/>
+        <TextBox x:Name="tbTimeFormat" Grid.Row="2"/>
+        <TextBox x:Name="tbSuffix" Grid.Row="2" Grid.Column="2"/>
+        <ComboBox x:Name="cbTZGroup" Grid.Row="3" IsDropDownOpen="True" SelectionChanged="CbSelect_SelectionChanged" />
+        <TextBox x:Name="tbTZGroup" Grid.Row="4"/>
+        <Label x:Name="lbl1" Content="UTC to EDT" Grid.Row="7" />
+        <TextBox x:Name="rtbOut1" Grid.Row="8"/>
+        <Label x:Name="lbl2" Content="UTC to EST or CDT" Grid.Row="9" />
+        <TextBox x:Name="rtbOut2" Grid.Row="10"></TextBox>
+        <Label x:Name="lbl3" Content="UCT to CST or MDT" Grid.Row="11" />
+        <TextBox x:Name="rtbOut3" Grid.Row="12"></TextBox>
+        <Label x:Name="lbl4" Content="UTC to MST or PDT" Grid.Row="13" />
+        <TextBox x:Name="rtbOut4" Grid.Row="14"></TextBox>
+        <Button x:Name="btnCopy1" Grid.Row="8" Click="BtnCopy1_Click">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy2" Grid.Row="10">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy3" Grid.Row="12">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy4" Grid.Row="14">Copy to Clipboard</Button>
 
     </Grid>
 </Window>

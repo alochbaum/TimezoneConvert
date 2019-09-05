@@ -56,18 +56,6 @@ namespace TimeZoneConvert
             dt = dt.AddHours(-1.0);
             rtbOut4.Text = dt.ToString(strFormat);
             dt = dt.AddHours(-1.0);
-            rtbOut5.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(12.0);
-            rtbOut6.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(1.0);
-            rtbOut7.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(1.0);
-            rtbOut8.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(1.0);
-            rtbOut9.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(1.0);
-            rtbOut10.Text = dt.ToString(strFormat);
-
         }
 
         private void DtpInput_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -83,6 +71,13 @@ namespace TimeZoneConvert
         private void BtnCopy1_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void CbSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            tbTimeFormat.Text= lOutformat[cbSelect.SelectedIndex].GetTimeFormat();
+            tbPrefix.Text = lOutformat[cbSelect.SelectedIndex].GetPrefix();
+            tbSuffix.Text = lOutformat[cbSelect.SelectedIndex].GetSuffix();
         }
         // note: the code for the original program is located in 
         // \\192.168.3.98\NextBurn\VS2010C#_Projects\TimeZoneConvert
