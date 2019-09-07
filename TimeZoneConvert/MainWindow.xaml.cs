@@ -24,6 +24,7 @@ namespace TimeZoneConvert
         private ReadSQLite myReadSQLite;
         private List<OutputFormat> lOutformat;
         private List<TimeZone> lTimeZone;
+        private List<string> lTZGroups;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,7 +35,13 @@ namespace TimeZoneConvert
             myReadSQLite = new ReadSQLite();
             if (!myReadSQLite.GotDB())
                 MessageBox.Show("Didn't get database");
-            else loadFormats();
+            else
+            {
+                loadFormats();
+                if (!loadTZGroups())
+                    MessageBox.Show("Didn't get Timezone groups from database");
+                else cbTZGroup.SelectedIndex = 1;
+            }
         }
         private void loadFormats()
         {
@@ -43,6 +50,19 @@ namespace TimeZoneConvert
             {
                 cbSelect.Items.Add(ouf.GetTitle());
             }
+        }
+        private bool loadTZGroups()
+        {
+            lTZGroups = myReadSQLite.GetTZGroups();
+            if (lTZGroups.Count < 1) return false;
+            else
+            {
+                foreach(string s in lTZGroups)
+                {
+                    cbTZGroup.Items.Add(s);
+                }
+            }
+            return true;
         }
         private void SetTimes(string strFormat)
         {

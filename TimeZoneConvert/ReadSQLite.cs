@@ -44,10 +44,24 @@ namespace TimeZoneConvert
                 {
                     lsReturn.Add(new OutputFormat(reader[1].ToString(), reader[2].ToString(),
                         reader[3].ToString(), reader[4].ToString()));
-                   // lsReturn.Add(Read[1],Read[2]);
                 }
             }
             return lsReturn;
+        }
+        public List<string> GetTZGroups()
+        {
+            List<string> lReturn = new List<string>();
+            string sql = "SELECT Title FROM TZGroups;";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    lReturn.Add(reader[0].ToString());
+                }
+            }
+            return lReturn;
         }
     }
 }
