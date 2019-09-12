@@ -104,13 +104,13 @@ namespace TimeZoneConvert
                 DateTime DT = (DateTime)dtpInput.Value;
                 DateTime tempDT = new DateTime();
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[0].GetValueX10()) / 10.0));
-                rtbOut1.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                rtbOut1.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[1].GetValueX10()) / 10.0));
-                rtbOut2.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                rtbOut2.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[2].GetValueX10()) / 10.0));
-                rtbOut3.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                rtbOut3.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[3].GetValueX10()) / 10.0));
-                rtbOut4.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                rtbOut4.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
             }
         }
 
@@ -126,9 +126,20 @@ namespace TimeZoneConvert
         }
         private void BtnCopy1_Click(object sender, RoutedEventArgs e)
         {
-
+            Clipboard.SetText(rtbOut1.Text);
         }
-
+        private void BtnCopy2_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(rtbOut2.Text);
+        }
+        private void BtnCopy3_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(rtbOut3.Text);
+        }
+        private void BtnCopy4_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(rtbOut4.Text);
+        }
         private void CbSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tbTimeFormat.Text= lOutformat[cbSelect.SelectedIndex].GetTimeFormat();
@@ -143,5 +154,7 @@ namespace TimeZoneConvert
             UpdateTimezones();
 
         }
+
+
     }
 }

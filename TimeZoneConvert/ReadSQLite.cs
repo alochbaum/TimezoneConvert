@@ -79,11 +79,8 @@ namespace TimeZoneConvert
                 while (reader.Read())
                 {
                     // This is the current issue
-                    lReturn.Add(new TimeZone((long)reader["grp_id"], 1,
-    reader["Title"].ToString(),1));
-
-                   // lReturn.Add(new TimeZone((int)reader["grp_id"], (int)reader["tz_id"],
-                     //   reader["Title"].ToString(), (int)reader["ValueX10"]));
+                    lReturn.Add(new TimeZone((Int64)reader.GetInt64(0), (Int64)reader.GetInt64(1),
+                        reader["Title"].ToString(), (Int64)reader.GetInt64(3)));
                 }
                 reader.Close();
             }

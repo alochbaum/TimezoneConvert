@@ -35,8 +35,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="1"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -55,7 +55,6 @@
         <TextBox x:Name="tbTimeFormat" Grid.Row="2"/>
         <TextBox x:Name="tbSuffix" Grid.Row="2" Grid.Column="2"/>
         <ComboBox x:Name="cbTZGroup" Grid.Row="3" IsDropDownOpen="True" SelectionChanged="CbTZGroup_SelectionChanged" />
-        <TextBox x:Name="tbTZGroup" Grid.Row="4"/>
         <Label x:Name="lbl1" Content="UTC to EDT" Grid.Row="7" />
         <TextBox x:Name="rtbOut1" Grid.Row="8"/>
         <Label x:Name="lbl2" Content="UTC to EST or CDT" Grid.Row="9" />
@@ -65,9 +64,9 @@
         <Label x:Name="lbl4" Content="UTC to MST or PDT" Grid.Row="13" />
         <TextBox x:Name="rtbOut4" Grid.Row="14"></TextBox>
         <Button x:Name="btnCopy1" Grid.Row="8" Click="BtnCopy1_Click">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy2" Grid.Row="10">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy3" Grid.Row="12">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy4" Grid.Row="14">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy2" Grid.Row="10" Click="BtnCopy2_Click">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy3" Grid.Row="12" Click="BtnCopy3_Click">Copy to Clipboard</Button>
+        <Button x:Name="btnCopy4" Grid.Row="14" Click="BtnCopy4_Click">Copy to Clipboard</Button>
 
     </Grid>
 </Window>

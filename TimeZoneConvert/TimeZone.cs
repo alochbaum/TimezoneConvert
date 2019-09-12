@@ -8,24 +8,24 @@ namespace TimeZoneConvert
 {
     class TimeZone
     {
-        private int iGroup;
-        private int iId;
+        private long iGroup;
+        private long iId;
         private string Title;
-        private int ValueX10;
-        public TimeZone( int iGroup, int iId, string Title, int ValueX10)
+        private long ValueX10;
+        public TimeZone( long iGroup, long iId, string Title, long ValueX10)
         {
             this.iGroup = iGroup;
             this.iId = iId;
             this.Title = Title;
             this.ValueX10 = ValueX10;
         }
-        public int GetiGroup() { return iGroup; }
-        public void SetiGroup(int iGroup) { this.iGroup = iGroup; }
-        public int GetiID() { return iId; }
-        public void SetiID(int iID) { this.iId = iId; }
+        public long GetiGroup() { return iGroup; }
+        public void SetiGroup(long iGroup) { this.iGroup = iGroup; }
+        public long GetiID() { return iId; }
+        public void SetiID(long iId) { this.iId = iId; }
         public string GetTitle() { return Title; }
         public void SetTitle(string Title) { this.Title = Title; }
-        public int GetValueX10() { return ValueX10; }
-        public void SetValueX10 (int ValueX10) { this.ValueX10 = ValueX10; }
+        public long GetValueX10() { return ValueX10; }
+        public void SetValueX10 (long ValueX10) { this.ValueX10 = ValueX10; }
     }
 }
