@@ -12,7 +12,7 @@ namespace TimeZoneConvert
         private int iId;
         private string Title;
         private int ValueX10;
-        public TimeZone(int iGroup, int iId, string Title, int ValueX10)
+        public TimeZone( int iGroup, int iId, string Title, int ValueX10)
         {
             this.iGroup = iGroup;
             this.iId = iId;

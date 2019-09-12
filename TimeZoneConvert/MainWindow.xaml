@@ -54,7 +54,7 @@
         <TextBox x:Name="tbPrefix" Grid.Row="1" Grid.Column="2"/>
         <TextBox x:Name="tbTimeFormat" Grid.Row="2"/>
         <TextBox x:Name="tbSuffix" Grid.Row="2" Grid.Column="2"/>
-        <ComboBox x:Name="cbTZGroup" Grid.Row="3" IsDropDownOpen="True" SelectionChanged="CbSelect_SelectionChanged" />
+        <ComboBox x:Name="cbTZGroup" Grid.Row="3" IsDropDownOpen="True" SelectionChanged="CbTZGroup_SelectionChanged" />
         <TextBox x:Name="tbTZGroup" Grid.Row="4"/>
         <Label x:Name="lbl1" Content="UTC to EDT" Grid.Row="7" />
         <TextBox x:Name="rtbOut1" Grid.Row="8"/>

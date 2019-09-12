@@ -46,8 +46,49 @@ namespace TimeZoneConvert
                         reader[3].ToString(), reader[4].ToString()));
                    // lsReturn.Add(Read[1],Read[2]);
                 }
+                reader.Close();
             }
             return lsReturn;
+        }
+        public List<string> GetTZGroups()
+        {
+            List<string> lReturn = new List<string>();
+            string sql = "SELECT Title FROM TZGroups;";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    lReturn.Add(reader[0].ToString());
+                }
+                reader.Close();
+            }
+            return lReturn;
+        }
+        public List<TimeZone> GetTimezones(int iGroup)
+        {
+            List<TimeZone> lReturn = new List<TimeZone>();
+            string sql = "SELECT GX.grp_id grp_id, TZ.tz_id tz_id, TZ.Title Title, TZ.ValueX10 ValueX10 "+
+                "FROM TimeZones TZ JOIN grpXtz GX ON GX.tz_id = TZ.tz_id WHERE GX.grp_id = " +
+                iGroup.ToString() + ";";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    // This is the current issue
+                    lReturn.Add(new TimeZone((long)reader["grp_id"], 1,
+    reader["Title"].ToString(),1));
+
+                   // lReturn.Add(new TimeZone((int)reader["grp_id"], (int)reader["tz_id"],
+                     //   reader["Title"].ToString(), (int)reader["ValueX10"]));
+                }
+                reader.Close();
+            }
+            return lReturn;
+
         }
     }
 }

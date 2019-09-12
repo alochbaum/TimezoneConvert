@@ -23,44 +23,100 @@ namespace TimeZoneConvert
     {
         private ReadSQLite myReadSQLite;
         private List<OutputFormat> lOutformat;
-        private List<TimeZone> lTimeZone;
+        private List<TimeZone> lTimeZones;
+        private List<string> lTZgroups;
         public MainWindow()
         {
             InitializeComponent();
             // Adding the version number to the title
             MainWin.Title = "Timezone Conert version: " + Assembly.GetExecutingAssembly().GetName().Version;
             dtpInput.Value = DateTime.Now;
-            SetTimes("MM/dd/yy H:mm:ss");
             myReadSQLite = new ReadSQLite();
             if (!myReadSQLite.GotDB())
                 MessageBox.Show("Didn't get database");
-            else loadFormats();
-        }
-        private void loadFormats()
-        {
-            lOutformat = myReadSQLite.GetOutputFormats();
-            foreach (OutputFormat ouf in lOutformat)
+            else
             {
-                cbSelect.Items.Add(ouf.GetTitle());
+                if (loadTimezones(0))
+                {
+                    UpdateTimezones();
+                }
+                if (loadFormats())
+                {
+                    cbSelect.SelectedIndex = 0;
+                }
+                if(loadTZGroups())
+                {
+                    cbTZGroup.SelectedIndex = 0;
+                }
+
             }
         }
-        private void SetTimes(string strFormat)
+        private bool loadFormats()
         {
-            DateTime dt = (DateTime)dtpInput.Value;
-            dt = dt.AddHours(-4.0);
-            rtbOut1.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(-1.0);
-            rtbOut2.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(-1.0);
-            rtbOut3.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(-1.0);
-            rtbOut4.Text = dt.ToString(strFormat);
-            dt = dt.AddHours(-1.0);
+            lOutformat = myReadSQLite.GetOutputFormats();
+            if (lOutformat.Count > 0)
+            {
+                foreach (OutputFormat ouf in lOutformat)
+                {
+                    cbSelect.Items.Add(ouf.GetTitle());
+                }
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// When you input a group number this gets a list of Timezones
+        /// </summary>
+        /// <param name="iGroupNum">Group number from 1 to max numbers (adding 1 to selections for now)</param>
+        /// <returns>Return False if list doesn't have at least 4 timezones</returns>
+        private bool loadTimezones(int iGroupNum)
+        {
+            if(lTimeZones!=null) lTimeZones.Clear();
+            lTimeZones = myReadSQLite.GetTimezones(iGroupNum);
+            if (lTimeZones.Count > 3) return true;
+            // I'm thinking of adding this after I load the groups with the count of the groups
+            return false;
+        }
+        private bool loadTZGroups()
+        {
+            lTZgroups = myReadSQLite.GetTZGroups();
+            if (lTZgroups.Count > 0)
+            {
+                foreach(string s in lTZgroups)
+                {
+                    cbTZGroup.Items.Add(s);
+                }
+                return true;
+            }
+            return false;
+        }
+        private void UpdateTimezones()
+        {
+            // This function is called often in setup functions before the list of timezones is complete
+            if ((lTimeZones != null)&&(lTimeZones.Count>3))
+            {
+                // First update labels
+                lbl1.Content = lTimeZones[0].GetTitle();
+                lbl2.Content = lTimeZones[1].GetTitle();
+                lbl3.Content = lTimeZones[2].GetTitle();
+                lbl4.Content = lTimeZones[3].GetTitle();
+                // Second computer the times
+                DateTime DT = (DateTime)dtpInput.Value;
+                DateTime tempDT = new DateTime();
+                tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[0].GetValueX10()) / 10.0));
+                rtbOut1.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[1].GetValueX10()) / 10.0));
+                rtbOut2.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[2].GetValueX10()) / 10.0));
+                rtbOut3.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[3].GetValueX10()) / 10.0));
+                rtbOut4.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+            }
         }
 
         private void DtpInput_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            SetTimes("MM/dd/yy H:mm:ss");
+            UpdateTimezones();
         }
 
         private void GetOutFormats()
@@ -78,8 +134,14 @@ namespace TimeZoneConvert
             tbTimeFormat.Text= lOutformat[cbSelect.SelectedIndex].GetTimeFormat();
             tbPrefix.Text = lOutformat[cbSelect.SelectedIndex].GetPrefix();
             tbSuffix.Text = lOutformat[cbSelect.SelectedIndex].GetSuffix();
+            UpdateTimezones();
         }
-        // note: the code for the original program is located in 
-        // \\192.168.3.98\NextBurn\VS2010C#_Projects\TimeZoneConvert
+
+        private void CbTZGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            loadTimezones(cbTZGroup.SelectedIndex + 1);
+            UpdateTimezones();
+
+        }
     }
 }
