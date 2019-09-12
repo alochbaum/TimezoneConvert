@@ -102,6 +102,7 @@ namespace TimeZoneConvert
                 lbl4.Content = lTimeZones[3].GetTitle();
                 // Second computer the times
                 DateTime DT = (DateTime)dtpInput.Value;
+                tbReformatedTime.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
                 DateTime tempDT = new DateTime();
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[0].GetValueX10()) / 10.0));
                 rtbOut1.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
