@@ -87,5 +87,21 @@ namespace TimeZoneConvert
             return lReturn;
 
         }
+        public string GetVersion()
+        {
+            string sreturn="";
+            string sql = "Select Number from Version order by Version_id desc limit 1;";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    sreturn = reader[0].ToString();
+                }
+                reader.Close();
+            }
+            return sreturn;
+        }
     }
 }

@@ -48,6 +48,8 @@ namespace TimeZoneConvert
                 {
                     cbTZGroup.SelectedIndex = 0;
                 }
+                string strdb = myReadSQLite.GetVersion();
+                MainWin.Title += " DB version " + strdb;
 
             }
         }
@@ -156,6 +158,9 @@ namespace TimeZoneConvert
 
         }
 
-
+        private void BtnCopyFormattedTime_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(tbReformatedTime.Text);
+        }
     }
 }
