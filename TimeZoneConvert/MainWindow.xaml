@@ -50,6 +50,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <wpfTool:DateTimePicker x:Name="dtpInput" Margin="10,0,5,0" ValueChanged="DtpInput_ValueChanged"></wpfTool:DateTimePicker>
+        <Button x:Name="btPaste" Grid.Row="0" Click="BtPaste_Click">Paste</Button>
         <ComboBox x:Name="cbSelect" Grid.Row="1" IsDropDownOpen="True" SelectionChanged="CbSelect_SelectionChanged" />
         <TextBox x:Name="tbPrefix" Grid.Row="1" Grid.Column="2"/>
         <TextBox x:Name="tbTimeFormat" Grid.Row="2"/>

@@ -31,6 +31,7 @@ namespace TimeZoneConvert
             // Adding the version number to the title
             MainWin.Title = "Timezone Conert version: " + Assembly.GetExecutingAssembly().GetName().Version;
             dtpInput.Value = DateTime.Now;
+            Xceed.Wpf.Toolkit.MessageBox.Show("Starting to get database", "Hi", MessageBoxButton.OK);
             myReadSQLite = new ReadSQLite();
             if (!myReadSQLite.GotDB())
                 MessageBox.Show("Didn't get database");
@@ -161,6 +162,17 @@ namespace TimeZoneConvert
         private void BtnCopyFormattedTime_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(tbReformatedTime.Text);
+        }
+
+        private void BtPaste_Click(object sender, RoutedEventArgs e)
+        {
+            string strIn = Clipboard.GetText();
+            while (strIn.Length > 0 && !(char.IsDigit(strIn[0])))
+                strIn = strIn.Substring(1);
+            if (strIn.Length < 0) Xceed.Wpf.Toolkit.MessageBox.Show("Couldn't Find numbers",
+                   "Time Parsing Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Xceed.Wpf.Toolkit.MessageBox.Show("Failed to parse time",
+                   "Time Parsing Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
