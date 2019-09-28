@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-//using System.Timers;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace TimeZoneConvert
 {
@@ -23,10 +23,10 @@ namespace TimeZoneConvert
     public partial class MainWindow : Window
     {
         private ReadSQLite myReadSQLite;
-       // private static Timer _timer;
         private List<OutputFormat> lOutformat;
         private List<TimeZone> lTimeZones;
         private List<string> lTZgroups;
+        private static DispatcherTimer _timer;
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +39,10 @@ namespace TimeZoneConvert
             //timer.Enabled = false;
             //_timer = timer;
             // Adding the version number to the title
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            _timer = timer;
             MainWin.Title = "Timezone Conert version: " + Assembly.GetExecutingAssembly().GetName().Version;
             dtpInput.Value = DateTime.Now;
             setStatus("Starting to load database");
@@ -106,16 +110,16 @@ namespace TimeZoneConvert
         private void setStatus(string strIn)
         {
             lbStatus.Content = strIn;
-            _timer.Enabled = true;
+            _timer.Start();
         }
-        //private void _timer_Elapsed(object sender, ElapsedEventArgs e)
-        //{
-        //    if (lbStatus.IsVisible == true)
-        //    {
-        //        lbStatus.Visibility = Visibility.Hidden;
-        //    }
-        //    _timer.Enabled = false;
-        //}
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (lbStatus.IsVisible == true)
+            {
+                lbStatus.Visibility = Visibility.Hidden;
+            }
+            _timer.Stop();
+        }
         private void UpdateTimezones()
         {
             // This function is called often in setup functions before the list of timezones is complete
