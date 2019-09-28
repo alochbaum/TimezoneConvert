@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+//using System.Timers;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,16 +23,25 @@ namespace TimeZoneConvert
     public partial class MainWindow : Window
     {
         private ReadSQLite myReadSQLite;
+       // private static Timer _timer;
         private List<OutputFormat> lOutformat;
         private List<TimeZone> lTimeZones;
         private List<string> lTZgroups;
         public MainWindow()
         {
             InitializeComponent();
+            // Setting up the time for the static label
+            // I need to replace this with a dispatch timer
+            // https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatchertimer?redirectedfrom=MSDN&view=netframework-4.8
+            // https://www.wpf-tutorial.com/misc/dispatchertimer/
+            //var timer = new Timer(9000);
+            //timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
+            //timer.Enabled = false;
+            //_timer = timer;
             // Adding the version number to the title
             MainWin.Title = "Timezone Conert version: " + Assembly.GetExecutingAssembly().GetName().Version;
             dtpInput.Value = DateTime.Now;
-            Xceed.Wpf.Toolkit.MessageBox.Show("Starting to get database", "Hi", MessageBoxButton.OK);
+            setStatus("Starting to load database");
             myReadSQLite = new ReadSQLite();
             if (!myReadSQLite.GotDB())
                 MessageBox.Show("Didn't get database");
@@ -93,6 +103,19 @@ namespace TimeZoneConvert
             }
             return false;
         }
+        private void setStatus(string strIn)
+        {
+            lbStatus.Content = strIn;
+            _timer.Enabled = true;
+        }
+        //private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        //{
+        //    if (lbStatus.IsVisible == true)
+        //    {
+        //        lbStatus.Visibility = Visibility.Hidden;
+        //    }
+        //    _timer.Enabled = false;
+        //}
         private void UpdateTimezones()
         {
             // This function is called often in setup functions before the list of timezones is complete
@@ -163,16 +186,33 @@ namespace TimeZoneConvert
         {
             Clipboard.SetText(tbReformatedTime.Text);
         }
-
+        /// <summary>
+        /// This function takes text from the clipboard which might have characters in front of time
+        /// and time in formats from iTX like extra : and the frame number or .fff where f is 100ths 
+        /// of a second and puts in to the time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtPaste_Click(object sender, RoutedEventArgs e)
         {
             string strIn = Clipboard.GetText();
+            // stripping extra characters at the beginning of the time string
             while (strIn.Length > 0 && !(char.IsDigit(strIn[0])))
                 strIn = strIn.Substring(1);
-            if (strIn.Length < 0) Xceed.Wpf.Toolkit.MessageBox.Show("Couldn't Find numbers",
-                   "Time Parsing Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            Xceed.Wpf.Toolkit.MessageBox.Show("Failed to parse time",
-                   "Time Parsing Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (strIn.Length < 0) Xceed.Wpf.Toolkit.MessageBox.Show("Couldn't Find numbers in "
+                + Clipboard.GetText(), "Time Parsing Error ", MessageBoxButton.OK, MessageBoxImage.Error);
+            // now stripping exta characters at the end of the time string
+            while (strIn.Length > 0 && !(char.IsDigit(strIn[strIn.Length-1])))
+                strIn = strIn.Substring(0, strIn.Length - 1);
+            // locate if space in string, to determine if date is yyyy-mm-dd
+            int iSpace = strIn.IndexOf(' ');
+            if(iSpace!=10)Xceed.Wpf.Toolkit.MessageBox.Show("Expected yyyy-mm-dd at the beginning of copied time",
+                   "Time Parsing Error" + Clipboard.GetText(), MessageBoxButton.OK, MessageBoxImage.Error);
+            Xceed.Wpf.Toolkit.MessageBox.Show(strIn + " from " + Clipboard.GetText(), 
+                "Final string parsed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            //Xceed.Wpf.Toolkit.MessageBox.Show("Failed to parse time",
+            //       "Time Parsing Error" + Clipboard.GetText(), MessageBoxButton.OK, MessageBoxImage.Error);
+
         }
     }
 }

@@ -58,6 +58,7 @@
         <ComboBox x:Name="cbTZGroup" Grid.Row="3" IsDropDownOpen="True" SelectionChanged="CbTZGroup_SelectionChanged" />
         <TextBox x:Name="tbReformatedTime" Grid.Row="4"/>
         <Button x:Name="btnCopyFormattedTime" Grid.Row="4" Grid.Column="2" Click="BtnCopyFormattedTime_Click">Copy to Clipboard</Button>
+        <Label x:Name="lbStatus" Grid.Row="5" Grid.ColumnSpan="2"></Label>
         <Label x:Name="lbl1" Content="UTC to EDT" Grid.Row="7" />
         <TextBox x:Name="rtbOut1" Grid.Row="8"/>
         <Label x:Name="lbl2" Content="UTC to EST or CDT" Grid.Row="9" />
