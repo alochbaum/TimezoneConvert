@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -30,19 +31,18 @@ namespace TimeZoneConvert
         public MainWindow()
         {
             InitializeComponent();
-            // Setting up the time for the static label
-            // I need to replace this with a dispatch timer
+            // Getting config data
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            int iStatusTime = 5;
+            int.TryParse(config.AppSettings.Settings["StatusTime"].Value,out iStatusTime);
+            // I'm using a dispatch timer
             // https://docs.microsoft.com/en-us/dotnet/api/system.windows.threading.dispatchertimer?redirectedfrom=MSDN&view=netframework-4.8
             // https://www.wpf-tutorial.com/misc/dispatchertimer/
-            //var timer = new Timer(9000);
-            //timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
-            //timer.Enabled = false;
-            //_timer = timer;
-            // Adding the version number to the title
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Interval = TimeSpan.FromSeconds(iStatusTime);
             timer.Tick += timer_Tick;
             _timer = timer;
+            // Adding the version number to the title
             MainWin.Title = "Timezone Conert version: " + Assembly.GetExecutingAssembly().GetName().Version;
             dtpInput.Value = DateTime.Now;
             setStatus("Starting to load database");
@@ -135,18 +135,21 @@ namespace TimeZoneConvert
                 lbl2.Content = lTimeZones[1].GetTitle();
                 lbl3.Content = lTimeZones[2].GetTitle();
                 lbl4.Content = lTimeZones[3].GetTitle();
-                // Second computer the times
+                // Second compute the times
                 DateTime DT = (DateTime)dtpInput.Value;
                 tbReformatedTime.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
-                DateTime tempDT = new DateTime();
-                tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[0].GetValueX10()) / 10.0));
-                tbOut1.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
-                tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[1].GetValueX10()) / 10.0));
-                tbOut2.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
-                tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[2].GetValueX10()) / 10.0));
-                tbOut3.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
-                tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[3].GetValueX10()) / 10.0));
-                tbOut4.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                // Dates are immutable objects so can't use just one variable for all 4 or dates will
+                // not change, I revised line here DateTime tempDT = new DateTime();
+                DateTime tempDT1 = DT.AddHours((double)(Convert.ToDouble(lTimeZones[0].GetValueX10()) / 10.0));
+                tbOut1.Text = tbPrefix.Text + tempDT1.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                DateTime tempDT2 = DT.AddHours((double)(Convert.ToDouble(lTimeZones[1].GetValueX10()) / 10.0));
+                tbOut2.Text = tbPrefix.Text + tempDT2.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                DateTime tempDT3 = DT.AddHours((double)(Convert.ToDouble(lTimeZones[2].GetValueX10()) / 10.0));
+                tbOut3.Text = tbPrefix.Text + tempDT3.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                DateTime tempDT4 = DT.AddHours((double)(Convert.ToDouble(lTimeZones[3].GetValueX10()) / 10.0));
+                tbOut4.Text = tbPrefix.Text + tempDT4.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                // Third display 100ths
+                tbHundreths.Text = DT.ToString("fff");
             }
         }
 
@@ -211,6 +214,25 @@ namespace TimeZoneConvert
             //Xceed.Wpf.Toolkit.MessageBox.Show("Failed to parse time",
             //       "Time Parsing Error" + Clipboard.GetText(), MessageBoxButton.OK, MessageBoxImage.Error);
 
+        }
+
+        private void TbHundreths_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            winPick100ths _winPick = new winPick100ths(int.Parse(tbHundreths.Text));
+            if(_winPick.ShowDialog()==true)
+            {
+                int iChange = _winPick.GetValue();
+                int iOriginal = int.Parse(tbHundreths.Text);
+                if (iOriginal <= iChange)
+                {
+                    // add difference as 100th of second
+                }
+                else
+                {
+                    // subtract the difference as 100th of a second
+                }
+            }
+            setStatus("Clicked me");
         }
     }
 }
