@@ -65,6 +65,8 @@ namespace TimeZoneConvert
                 }
                 string strdb = myReadSQLite.GetVersion();
                 MainWin.Title += " DB version " + strdb;
+                // main window opening on dropdown select group
+                //btnCopyFormattedTime.Focus();
 
             }
         }
@@ -110,6 +112,7 @@ namespace TimeZoneConvert
         private void setStatus(string strIn)
         {
             lbStatus.Content = strIn;
+            lbStatus.Visibility = Visibility.Visible;
             _timer.Start();
         }
         private void timer_Tick(object sender, EventArgs e)
@@ -135,13 +138,13 @@ namespace TimeZoneConvert
                 tbReformatedTime.Text = tbPrefix.Text + DT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
                 DateTime tempDT = new DateTime();
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[0].GetValueX10()) / 10.0));
-                rtbOut1.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                tbOut1.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[1].GetValueX10()) / 10.0));
-                rtbOut2.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                tbOut2.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[2].GetValueX10()) / 10.0));
-                rtbOut3.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                tbOut3.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
                 tempDT = DT.AddHours((double)(Convert.ToDouble(lTimeZones[3].GetValueX10()) / 10.0));
-                rtbOut4.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
+                tbOut4.Text = tbPrefix.Text + tempDT.ToString(tbTimeFormat.Text) + tbSuffix.Text;
             }
         }
 
@@ -155,22 +158,7 @@ namespace TimeZoneConvert
             lOutformat = myReadSQLite.GetOutputFormats();
 
         }
-        private void BtnCopy1_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(rtbOut1.Text);
-        }
-        private void BtnCopy2_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(rtbOut2.Text);
-        }
-        private void BtnCopy3_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(rtbOut3.Text);
-        }
-        private void BtnCopy4_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(rtbOut4.Text);
-        }
+
         private void CbSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tbTimeFormat.Text= lOutformat[cbSelect.SelectedIndex].GetTimeFormat();
@@ -186,9 +174,15 @@ namespace TimeZoneConvert
 
         }
 
-        private void BtnCopyFormattedTime_Click(object sender, RoutedEventArgs e)
+        private void BtnCopy_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(tbReformatedTime.Text);
+            // Copy buttons have btn and the rest of textbox after tb in there name
+            // So getting the button name allows us to compute the textbox to copy
+            string strSender = ((Button)sender).Name;
+            string strComputedObj = "tb" + strSender.Substring(3);
+            string t = TZgrid.Children.OfType<TextBox>().Where(x => x.Name == strComputedObj).FirstOrDefault().Text;
+            Clipboard.SetText(t);
+            setStatus("Copied " + t);
         }
         /// <summary>
         /// This function takes text from the clipboard which might have characters in front of time

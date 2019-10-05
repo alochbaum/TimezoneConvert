@@ -25,7 +25,7 @@
             <Setter Property="Margin" Value="10,0,5,0"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid x:Name="TZgrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" MinWidth="300"/>
             <ColumnDefinition Width="1*"/>
@@ -57,20 +57,20 @@
         <TextBox x:Name="tbSuffix" Grid.Row="2" Grid.Column="2"/>
         <ComboBox x:Name="cbTZGroup" Grid.Row="3" IsDropDownOpen="True" SelectionChanged="CbTZGroup_SelectionChanged" />
         <TextBox x:Name="tbReformatedTime" Grid.Row="4"/>
-        <Button x:Name="btnCopyFormattedTime" Grid.Row="4" Grid.Column="2" Click="BtnCopyFormattedTime_Click">Copy to Clipboard</Button>
-        <Label x:Name="lbStatus" Grid.Row="5" Grid.ColumnSpan="2"></Label>
+        <Button x:Name="btnReformatedTime" Grid.Row="4" Grid.Column="2" Click="BtnCopy_Click">Copy to Clipboard</Button>
+        <Label x:Name="lbStatus" Grid.Row="6" Grid.ColumnSpan="2"></Label>
         <Label x:Name="lbl1" Content="UTC to EDT" Grid.Row="7" />
-        <TextBox x:Name="rtbOut1" Grid.Row="8"/>
+        <TextBox x:Name="tbOut1" Grid.Row="8"/>
         <Label x:Name="lbl2" Content="UTC to EST or CDT" Grid.Row="9" />
-        <TextBox x:Name="rtbOut2" Grid.Row="10"></TextBox>
+        <TextBox x:Name="tbOut2" Grid.Row="10"></TextBox>
         <Label x:Name="lbl3" Content="UCT to CST or MDT" Grid.Row="11" />
-        <TextBox x:Name="rtbOut3" Grid.Row="12"></TextBox>
+        <TextBox x:Name="tbOut3" Grid.Row="12"></TextBox>
         <Label x:Name="lbl4" Content="UTC to MST or PDT" Grid.Row="13" />
-        <TextBox x:Name="rtbOut4" Grid.Row="14"></TextBox>
-        <Button x:Name="btnCopy1" Grid.Row="8" Click="BtnCopy1_Click">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy2" Grid.Row="10" Click="BtnCopy2_Click">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy3" Grid.Row="12" Click="BtnCopy3_Click">Copy to Clipboard</Button>
-        <Button x:Name="btnCopy4" Grid.Row="14" Click="BtnCopy4_Click">Copy to Clipboard</Button>
+        <TextBox x:Name="tbOut4" Grid.Row="14"></TextBox>
+        <Button x:Name="btnOut1" Grid.Row="8" Click="BtnCopy_Click">Copy to Clipboard</Button>
+        <Button x:Name="btnOut2" Grid.Row="10" Click="BtnCopy_Click">Copy to Clipboard</Button>
+        <Button x:Name="btnOut3" Grid.Row="12" Click="BtnCopy_Click">Copy to Clipboard</Button>
+        <Button x:Name="btnOut4" Grid.Row="14" Click="BtnCopy_Click">Copy to Clipboard</Button>
 
     </Grid>
 </Window>
