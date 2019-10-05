@@ -115,6 +115,7 @@ namespace TimeZoneConvert
             lbStatus.Visibility = Visibility.Visible;
             _timer.Start();
         }
+
         private void timer_Tick(object sender, EventArgs e)
         {
             if (lbStatus.IsVisible == true)
@@ -123,6 +124,7 @@ namespace TimeZoneConvert
             }
             _timer.Stop();
         }
+
         private void UpdateTimezones()
         {
             // This function is called often in setup functions before the list of timezones is complete
@@ -153,12 +155,6 @@ namespace TimeZoneConvert
             UpdateTimezones();
         }
 
-        private void GetOutFormats()
-        {
-            lOutformat = myReadSQLite.GetOutputFormats();
-
-        }
-
         private void CbSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tbTimeFormat.Text= lOutformat[cbSelect.SelectedIndex].GetTimeFormat();
@@ -171,19 +167,23 @@ namespace TimeZoneConvert
         {
             loadTimezones(cbTZGroup.SelectedIndex + 1);
             UpdateTimezones();
-
         }
 
+        /// <summary>
+        /// Copy buttons have btn and the rest of textbox after tb in there name
+        /// So getting the button name allows us to compute the textbox to copy
+        /// </summary>
+        /// <param name="sender">This can only be called by buttons</param>
+        /// <param name="e"></param>
         private void BtnCopy_Click(object sender, RoutedEventArgs e)
         {
-            // Copy buttons have btn and the rest of textbox after tb in there name
-            // So getting the button name allows us to compute the textbox to copy
             string strSender = ((Button)sender).Name;
             string strComputedObj = "tb" + strSender.Substring(3);
             string t = TZgrid.Children.OfType<TextBox>().Where(x => x.Name == strComputedObj).FirstOrDefault().Text;
             Clipboard.SetText(t);
             setStatus("Copied " + t);
         }
+
         /// <summary>
         /// This function takes text from the clipboard which might have characters in front of time
         /// and time in formats from iTX like extra : and the frame number or .fff where f is 100ths 
