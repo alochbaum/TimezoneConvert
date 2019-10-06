@@ -17,8 +17,8 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btn0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="60">Set to 0</Button>
-        <TextBox x:Name="tbvalue" Grid.Column="1" Margin="10,20"/>
+        <Button x:Name="btn0" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="60" Click="Btn0_Click">Set to 0</Button>
+        <Label x:Name="lbvalue" Grid.Column="1" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button x:Name="btnOK" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="60" Click="BtnOK_Click">OK (exit)</Button>
         <Slider x:Name="sldValue" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Maximum="999" LargeChange="100" SmallChange="1" ValueChanged="SldValue_ValueChanged"/>
     </Grid>

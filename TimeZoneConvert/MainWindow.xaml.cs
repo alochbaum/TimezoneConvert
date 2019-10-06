@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -200,19 +201,33 @@ namespace TimeZoneConvert
             // stripping extra characters at the beginning of the time string
             while (strIn.Length > 0 && !(char.IsDigit(strIn[0])))
                 strIn = strIn.Substring(1);
-            if (strIn.Length < 0) Xceed.Wpf.Toolkit.MessageBox.Show("Couldn't Find numbers in "
-                + Clipboard.GetText(), "Time Parsing Error ", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (strIn.Length <= 0)
+            {
+                setStatus($"Couldn't Find numbers in '{Clipboard.GetText()}'");
+                return;
+            }
             // now stripping exta characters at the end of the time string
             while (strIn.Length > 0 && !(char.IsDigit(strIn[strIn.Length-1])))
                 strIn = strIn.Substring(0, strIn.Length - 1);
             // locate if space in string, to determine if date is yyyy-mm-dd
             int iSpace = strIn.IndexOf(' ');
-            if(iSpace!=10)Xceed.Wpf.Toolkit.MessageBox.Show("Expected yyyy-mm-dd at the beginning of copied time",
-                   "Time Parsing Error" + Clipboard.GetText(), MessageBoxButton.OK, MessageBoxImage.Error);
-            Xceed.Wpf.Toolkit.MessageBox.Show(strIn + " from " + Clipboard.GetText(), 
-                "Final string parsed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            //Xceed.Wpf.Toolkit.MessageBox.Show("Failed to parse time",
-            //       "Time Parsing Error" + Clipboard.GetText(), MessageBoxButton.OK, MessageBoxImage.Error);
+            if (iSpace != 10)
+            {
+                setStatus($"Space after yyyy-mm-dd not in '{Clipboard.GetText()}'");
+                return;
+            }
+
+            DateTime DTtemp;
+            CultureInfo enUS = new CultureInfo("en-US");
+            if (DateTime.TryParse(strIn, out DTtemp))
+            {
+                dtpInput.Value = DTtemp;
+                setStatus($"Pasted '{DTtemp.ToString("yyyy-mm-dd hh:MM:ss")}'");
+                return;
+            }
+
+            setStatus($"Not expected format '{Clipboard.GetText()}'");
+     
 
         }
 
@@ -223,16 +238,21 @@ namespace TimeZoneConvert
             {
                 int iChange = _winPick.GetValue();
                 int iOriginal = int.Parse(tbHundreths.Text);
+                int iDiff = 0;
                 if (iOriginal <= iChange)
                 {
-                    // add difference as 100th of second
+                    iDiff = iChange - iOriginal;
                 }
                 else
                 {
+                    iDiff = -1 * (iOriginal - iChange);
                     // subtract the difference as 100th of a second
                 }
+                DateTime DTtemp = ((DateTime)dtpInput.Value).AddMilliseconds(iDiff);
+                dtpInput.Value = DTtemp;
+                setStatus($"Modified millisconds by {iDiff}");
             }
-            setStatus("Clicked me");
+            
         }
     }
 }

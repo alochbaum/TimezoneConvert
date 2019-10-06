@@ -36,7 +36,7 @@ namespace TimeZoneConvert
             // checking range
             if (_iValue < 0) _iValue = 0;
             if (_iValue > 999) _iValue = 999;
-            tbvalue.Text = _iValue.ToString();
+            lbvalue.Content = _iValue.ToString();
             sldValue.Value = _iValue;
         }
 
@@ -48,6 +48,11 @@ namespace TimeZoneConvert
         private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
+        }
+
+        private void Btn0_Click(object sender, RoutedEventArgs e)
+        {
+            updateValue(0);
         }
     }
 }
