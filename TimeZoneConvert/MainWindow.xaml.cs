@@ -58,11 +58,17 @@ namespace TimeZoneConvert
                 }
                 if (loadFormats())
                 {
-                    cbSelect.SelectedIndex = 0;
+                    int iIndex = 0;
+                    if(config.AppSettings.Settings["Selected"]!=null)
+                    int.TryParse(config.AppSettings.Settings["Selected"].Value, out iIndex);
+                    cbSelect.SelectedIndex = iIndex;
                 }
                 if(loadTZGroups())
                 {
-                    cbTZGroup.SelectedIndex = 0;
+                    int iIndex = 0;
+                    if (config.AppSettings.Settings["TZgroup"] != null)
+                        int.TryParse(config.AppSettings.Settings["TZgroup"].Value, out iIndex);
+                    cbTZGroup.SelectedIndex = iIndex;
                 }
                 string strdb = myReadSQLite.GetVersion();
                 MainWin.Title += " DB version " + strdb;
@@ -253,6 +259,29 @@ namespace TimeZoneConvert
                 setStatus($"Modified millisconds by {iDiff}");
             }
             
+        }
+
+        private void MainWin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //Load appsettings
+            Configuration config = ConfigurationManager.OpenExeConfiguration(
+                                    System.Reflection.Assembly.GetExecutingAssembly().Location);
+            //Check if key exists in the settings
+            if (config.AppSettings.Settings["TZgroup"] != null)
+            {
+                //If key exists, delete it
+                config.AppSettings.Settings.Remove("TZgroup");
+            }
+            //Add new key-value pair
+            config.AppSettings.Settings.Add("TZgroup", cbTZGroup.SelectedIndex.ToString());
+            //Save the selected output mode
+            if (config.AppSettings.Settings["Selected"] != null)
+            {
+                config.AppSettings.Settings.Remove("Selected");
+            }
+            config.AppSettings.Settings.Add("Selected", cbSelect.SelectedIndex.ToString());
+            //Save the changed settings
+            config.Save(ConfigurationSaveMode.Modified);
         }
     }
 }
