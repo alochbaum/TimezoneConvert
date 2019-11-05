@@ -217,7 +217,7 @@ namespace TimeZoneConvert
                 strIn = strIn.Substring(0, strIn.Length - 1);
             // locate if space in string, to determine if date is yyyy-mm-dd
             int iSpace = strIn.IndexOf(' ');
-            if (iSpace != 10)
+            if (iSpace>0 && iSpace != 10)
             {
                 setStatus($"Space after yyyy-mm-dd not in '{Clipboard.GetText()}'");
                 return;
