@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TimeZoneConvert"
         mc:Ignorable="d"
         Title="Please select value for 100ths of a second" Height="140" Width="300
-        " WindowStyle="ThreeDBorderWindow" ResizeMode="NoResize">
+        " WindowStyle="ThreeDBorderWindow" ResizeMode="NoResize" Icon="timezoneicon.ico" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>

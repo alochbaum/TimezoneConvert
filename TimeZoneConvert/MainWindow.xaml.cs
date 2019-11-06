@@ -73,7 +73,7 @@ namespace TimeZoneConvert
                 string strdb = myReadSQLite.GetVersion();
                 MainWin.Title += " DB version " + strdb;
                 // main window opening on dropdown select group
-                //btnCopyFormattedTime.Focus();
+                btnReformatedTime.Focus();
 
             }
         }
@@ -282,6 +282,13 @@ namespace TimeZoneConvert
             config.AppSettings.Settings.Add("Selected", cbSelect.SelectedIndex.ToString());
             //Save the changed settings
             config.Save(ConfigurationSaveMode.Modified);
+        }
+
+        private void BtPaste_Drop(object sender, DragEventArgs e)
+        {
+            string tstring = (string)e.Data.GetData(DataFormats.StringFormat);
+            Clipboard.SetText(tstring);
+            BtPaste_Click(this, null);
         }
     }
 }
