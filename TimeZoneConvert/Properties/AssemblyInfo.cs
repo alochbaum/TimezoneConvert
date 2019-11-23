@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TimeZoneConvert")]
-[assembly: AssemblyDescription("This program converts times in to different values")]
+[assembly: AssemblyDescription("This program converts time from and to UTC with different output formats")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("by B. Andrew Lochbaum")]
 [assembly: AssemblyProduct("TimeZoneConvert")]
@@ -51,7 +51,7 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.1.8.9")]
-[assembly: AssemblyFileVersion("2.1.8.9")]
+[assembly: AssemblyVersion("2.3.9.10")]
+[assembly: AssemblyFileVersion("2.3.9.10")]
 [assembly: NeutralResourcesLanguage("en-US")]
 

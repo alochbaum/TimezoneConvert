@@ -189,9 +189,19 @@ namespace TimeZoneConvert
         {
             string strSender = ((Button)sender).Name;
             string strComputedObj = "tb" + strSender.Substring(3);
-            string t = TZgrid.Children.OfType<TextBox>().Where(x => x.Name == strComputedObj).FirstOrDefault().Text;
-            Clipboard.SetText(t);
-            setStatus("Copied " + t);
+            // Adding this after some errors copying time string
+            try
+            {
+                string t = TZgrid.Children.OfType<TextBox>().Where(x => x.Name == strComputedObj).FirstOrDefault().Text;
+                Clipboard.SetText(t);
+                setStatus("Copied " + t);
+            }
+            catch (Exception ex)
+            {
+                setStatus($"Error {ex.Message}");
+                throw;
+            }
+
         }
 
         /// <summary>
@@ -289,6 +299,34 @@ namespace TimeZoneConvert
             string tstring = (string)e.Data.GetData(DataFormats.StringFormat);
             Clipboard.SetText(tstring);
             BtPaste_Click(this, null);
+        }
+        /// <summary>
+        /// Detect an F8 hit, and copies database to default location
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CbSelect_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F8)
+            {
+                // Configure open file dialog box
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.FileName = "TimeConvert"; // Default file name
+                dlg.DefaultExt = ".db"; // Default file extension
+                dlg.Filter = "SQLite3 dbs (.db)|*.db|(.sqlite)|*.sqlite"; // Filter files by extension
+
+                // Show open file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+
+                // Process open file dialog box results
+                if (result == true)
+                {
+                    //copy document
+                    string targetdir = AppDomain.CurrentDomain.BaseDirectory.ToString();
+                    System.IO.File.Copy(dlg.FileName, targetdir + "TimeConvert.db", true);
+
+                }
+            }
         }
     }
 }

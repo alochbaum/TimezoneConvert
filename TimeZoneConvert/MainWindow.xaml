@@ -50,9 +50,12 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <wpfTool:DateTimePicker x:Name="dtpInput" Margin="10,0,5,0" ValueChanged="DtpInput_ValueChanged"></wpfTool:DateTimePicker>
-        <Button x:Name="btPaste" Grid.Row="0" Click="BtPaste_Click" AllowDrop="True" Drop="BtPaste_Drop">Paste</Button>
-        <ComboBox x:Name="cbSelect" Grid.Row="1" IsDropDownOpen="True" SelectionChanged="CbSelect_SelectionChanged" />
-        <TextBox x:Name="tbHundreths" Grid.Row="1" Grid.Column="2" Margin="5,0,10,0" PreviewMouseUp="TbHundreths_PreviewMouseUp"/>
+        <Button x:Name="btPaste" Click="BtPaste_Click" AllowDrop="True" Drop="BtPaste_Drop" ToolTip="Click button to paste, or drag and let time go over button.">Paste</Button>
+
+        <ComboBox x:Name="cbSelect" Grid.Row="1" IsDropDownOpen="True" SelectionChanged="CbSelect_SelectionChanged" KeyDown="CbSelect_KeyDown" ToolTip="Selects format of time, if selected and F8 hit copies database to default location." />
+        <TextBox x:Name="tbHundreths" Grid.Row="1" Grid.Column="2" Margin="5,0,10,0" 
+                 PreviewMouseUp="TbHundreths_PreviewMouseUp" 
+                 ToolTip="This is 100th of seconds or millisecond value, left click to chage value."/>
         <TextBox x:Name="tbPrefix" Grid.Row="2" Grid.Column="2" Margin="5,0,10,0"/>
         <TextBox x:Name="tbTimeFormat" Grid.Row="2"/>
         <TextBox x:Name="tbSuffix" Grid.Row="3" Grid.Column="2" Margin="5,0,10,0"/>
